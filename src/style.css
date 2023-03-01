@@ -1,0 +1,31 @@
+header {
+    height: 150px;
+    border: 1px solid green
+}
+main{
+    height: 600px;
+    border: 1px solid red;
+    display: flex;
+    justify-content: space-between;
+}
+footer{
+    height: 250px;
+    border: 1px solid blue;
+}
+aside{
+    height: 100%;
+    border: 1px solid goldenrod;
+    width: 20%;
+}
+.login-page{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: aqua;
+    height: 100vh;
+}
+.login-form{
+    width: 50%;
+    height: 40%;
+}
