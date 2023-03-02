@@ -17,6 +17,11 @@ export default function Register() {
         setEmail(e.target.value)
     }
 
+    const onLogiSuccess = ()=>{
+        alert("Registration Successful")
+        window.location.href="/login"
+    }
+
     const onSubmitUserDetails = ()=>{
         const url = "http://localhost:1337/api/auth/local/register"
         const userData = {
@@ -34,10 +39,15 @@ export default function Register() {
 
         fetch(url, options)
         .then((res =>{
-            return res.json()
-        }))
-        .then((data =>{
-            console.log(data)
+            console.log(res)
+            //return res.json()
+            if (res.ok === true){
+                onLogiSuccess()
+            } 
+            else{
+                alert("User Already exist plaese login")
+                window.location.href="/login"
+            }
         }))
         .catch()
     }
@@ -45,25 +55,25 @@ export default function Register() {
     return (
         <div className='login-page'>
             <form  className='login-form'>
-                <div className="mb-3 row">
+                <div className="mb-3 ml-5 w-75 row">
                     <label htmlFor="staticEmail" className="col-sm-2 col-form-label">User name</label>
-                    <div className="col-sm-10">
+                    <div className="col-sm-10 w-50">
                     <input type="text" onChange={onUserNameInput}  value={username} className="form-control" id="staticEmail"  />
                     </div>
                 </div>
-                <div className="mb-3 row">
+                <div className="mb-3 ml-5 w-75 row">
                     <label htmlFor="inputEmail" className="col-sm-2 col-form-label">Email</label>
-                    <div className="col-sm-10">
+                    <div className="col-sm-10 w-50">
                     <input type="email" onChange={onEmailInput} value={email} className="form-control" id="inputEmail" />
                     </div>
                 </div>
-                <div className="mb-3 row">
+                <div className="mb-3 ml-5 w-75 row">
                     <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
-                    <div className="col-sm-10">
+                    <div className="col-sm-10 w-50">
                     <input type="password" onChange={onPasswordInput} value={password} className="form-control" id="inputPassword" />
                     </div>
                 </div>
-                <div className="mb-3 row w-25">
+                <div className="mb-3 row cr-btn-cont w-25 ml-5">
                     <input onClick={onSubmitUserDetails} className='btn btn-primary' value = "Create Account" />
                 </div>
             </form>

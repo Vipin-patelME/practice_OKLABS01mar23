@@ -7,6 +7,13 @@ import Register from "./pages/Register";
 
 
 function App() {
+
+  const token = localStorage.getItem("jwtToken")
+
+  if (token === undefined){
+    return <Login />
+  }
+
     return (
       <BrowserRouter>
         <Routes>

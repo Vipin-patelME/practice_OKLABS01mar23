@@ -12,7 +12,15 @@ export default function Login() {
     const onPasswordInput = e =>{
         setPassword(e.target.value)
     }
-    const onUserLogin = e =>{
+
+    const onLoginSuccess = data =>{
+        localStorage.setItem("jwtToken", data.jwt)
+        //console.log(data.jwt)
+        window.location.href="/"
+    }
+
+
+    const onUserLogin = async (e) =>{
         e.preventDefault()
         const url = "http://localhost:1337/api/auth/local"
         const userData = {
@@ -26,34 +34,35 @@ export default function Login() {
             body: JSON.stringify(userData)
         };
 
-        fetch(url, options)
-        .then((res =>{
-            return res.json()
-        }))
-        .then((data =>{
-            console.log(data)
-        }))
-        .catch()
+        const res = await fetch(url, options)
+        const data = await res.json()
+        
+        if (res.ok === true){
+            onLoginSuccess(data)
+        }
+        else{
+            alert("Invalid Credentials")
+        }
+        
     }
     return (
         <div className='login-page'>
             <form onSubmit={onUserLogin} className='login-form'>
-                <div className="mb-3 row">
+                <div className="mb-3 ml-5 w-75 row">
                     <label htmlFor="username" className="col-sm-2 col-form-label">User name</label>
-                    <div className="col-sm-10">
+                    <div className="col-sm-10 w-50">
                         <input type="text" onChange={onUserNameInput} value={username}  className="form-control" id="username"  />
                     </div>
                 </div>
-                <div className="mb-3 row">
+                <div className="mb-3 ml-5 w-75 row">
                     <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
-                    <div className="col-sm-10">
+                    <div className="col-sm-10 w-50">
                         <input type="password" onChange={onPasswordInput} value={password} className="form-control" id="inputPassword" />
                     </div>
                 </div>
-                <div className="mb-3 row w-25">
+                <div className="mb-3 row btn-cont">
                     <button type='submit' className='btn btn-primary'>Login</button>
                 </div>
-                
             </form>
         </div>
     )
